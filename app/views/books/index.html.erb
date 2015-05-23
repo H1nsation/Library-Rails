@@ -1,0 +1,22 @@
+<h1>Catalogue</h1>
+<% if user_signed_in? %>
+    Signed in as <%= current_user.email %>. Not you?
+    <%= link_to "Sign out", destroy_user_session_path, :method => :delete %>
+  <% else %>
+    <%= link_to "Sign up", new_user_registration_path %> or <%= link_to "sign in", new_user_session_path %>
+<% end %>
+<table>
+	<tr>
+		<th>Title</th>
+		<th>Quantity</th>
+		<th>Details</th>
+	</tr>
+	<% @books.each do |book| %>
+	<tr>
+		<td> <%= book.title %> </td>
+		<td> <%= book.quantity %> </td>
+		<td> <%= link_to "view", book %> </td>
+	</tr>
+	<% end %>
+</table>
+
