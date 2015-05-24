@@ -1,6 +1,22 @@
 <h1>Book</h1>
-<p><%= @book.title %></p>
-<p><%= @book.author %></p>
+<p>Title: <%= @book.title %></p>
+<p>Author: <%= @book.author %></p>
+<h2>Description:</h2>
 <p><%= @book.description %></p>
-<p><%= @book.quantity %></p>
+<p>Quantity: <%= @book.quantity %></p>
+<% if @book.is_available? %>
+	<p>Available: <%= @book.num_available %> </p>
+<% else %>
+	<p>Unavailable</p>
+<% end %>
+<% if user_signed_in? and @book.contains_user?(current_user) %>
+	<p>Already Taken Out</p>
+<% else %>
+	<%= button_to "Take Out" %>
+<% end %>		
+
+
+
+
+
 
