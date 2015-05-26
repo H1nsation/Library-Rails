@@ -1,4 +1,6 @@
 class BooksController < ApplicationController
+	before_filter :authenticate_user!,  except: [ :index, :show, :new, :create ]
+
 	def new
 		@book = Book.new
 	end
@@ -19,11 +21,6 @@ class BooksController < ApplicationController
 
 	def show
 		@book = Book.find(params[:id])
-	end
-
-	def create_loan
-		Book.find(params[:id]).loans.create(user: current_user)
-		redirect_to :controller => 'loans', :action => 'index'
 	end
 
 	private

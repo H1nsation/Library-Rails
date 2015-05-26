@@ -5,17 +5,18 @@
 		<th>Title</th>
 		<th>Check Out Date</th>
 		<th>Due Date</th>
-		<th>Returned?</th>
 	</tr>
 	<% @loans.each do |loan| %>
 		<tr>
 			<td> <%= Book.find(loan.book_id).title %> </td>
-			<td> <%= loan.created_at %> </td>
-			<td> </td>
+			<td> <%= loan.checkout_date %> </td>
+			<td> <%= loan.due_date %> </td>
 		</tr>
 	<% end %>
 </table>
 
-<p>Money owned?: </p>
-<p></p>
+<p>Money owned? : </p>
+<p>
+
+</p>
 
