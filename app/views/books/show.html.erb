@@ -12,7 +12,7 @@
 <% if user_signed_in? and @book.contains_user?(current_user) %>
 	<p>Already Taken Out</p>
 <% else %>
-	<%= button_to "Take Out" %>
+	<%= button_to "Take Out",  create_loan_book_path %>
 <% end %>		
 
 

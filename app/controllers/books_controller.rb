@@ -21,6 +21,11 @@ class BooksController < ApplicationController
 		@book = Book.find(params[:id])
 	end
 
+	def create_loan
+		Book.find(params[:id]).loans.create(user: current_user)
+		redirect_to :controller => 'loans', :action => 'index'
+	end
+
 	private
 		def book_params
 			params.require(:book).permit(:title, :author, :description, :quantity)

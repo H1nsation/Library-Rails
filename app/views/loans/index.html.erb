@@ -1,0 +1,21 @@
+<h1>All User Loans</h1>
+
+<table>
+	<tr>
+		<th>Title</th>
+		<th>Check Out Date</th>
+		<th>Due Date</th>
+		<th>Returned?</th>
+	</tr>
+	<% @loans.each do |loan| %>
+		<tr>
+			<td> <%= Book.find(loan.book_id).title %> </td>
+			<td> <%= loan.created_at %> </td>
+			<td> </td>
+		</tr>
+	<% end %>
+</table>
+
+<p>Money owned?: </p>
+<p></p>
+
