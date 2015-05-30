@@ -1,16 +1,24 @@
 <h1 class="text-center">Catalogue</h1>
-<table>
-	<tr>
-		<th>Title</th>
-		<th>Quantity</th>
-		<th>Details</th>
-	</tr>
+<div class="row">
 	<% @books.each do |book| %>
-		<tr>
-			<td> <%= book.title %> </td>
-			<td> <%= book.quantity %> </td>
-			<td> <%= link_to "view", book %> </td>
-		</tr>
-	<% end %>
-</table>
+	  <div class="col-sm-6 col-md-4">
+	    <div class="thumbnail">
+	      <%= image_tag book.cover.url %>
+	      <div class="caption">
+	        <h3><%= book.title %></h3>
+		        <% if user_signed_in? && book.contains_user?(current_user) %>
+					<button type="button" class="btn btn-warning pull-left">Already Taken Out</button>
+		        <% elsif book.is_available? %>
+					<%= button_to 'Take Out', { :controller => "loans", :action => "create", :book_id => book.id, :method=>:post }, class: "btn btn-primary pull-left" %>
+	        	<% else %>
+	        		<button type="button" class="btn btn-danger pull-left">No Stock</button>
+	        	<% end %>
+	        	<%= link_to "View Info", book_path(book), class: "btn btn-default" %>
+      		</div>
+   		 </div>
+  	</div>
+  <% end %>
+</div>
+
+
 

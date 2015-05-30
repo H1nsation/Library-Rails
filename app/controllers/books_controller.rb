@@ -1,5 +1,5 @@
 class BooksController < ApplicationController
-	before_filter :authenticate_user!,  except: [ :index, :show, :new, :create ]
+	before_filter :authenticate_user!,  except: [:index, :show, :new, :create ]
 
 	def new
 		@book = Book.new
@@ -25,6 +25,6 @@ class BooksController < ApplicationController
 
 	private
 		def book_params
-			params.require(:book).permit(:title, :author, :description, :quantity)
+			params.require(:book).permit(:title, :author, :year, :publisher, :genre, :description, :quantity, :cover)
 		end
 end
