@@ -1,5 +1,5 @@
 class BooksController < ApplicationController
-	before_filter :authenticate_user!,  except: [:index, :show, :new, :create ]
+	before_filter :require_admin, only: [:new, :create, :edit, :update, :destroy]
 
 	def new
 		@book = Book.new
@@ -8,7 +8,6 @@ class BooksController < ApplicationController
 	def create
 		@book = Book.new(book_params)
 		if @book.save
-			#flash[:notice] = "Added " + @book.title
 			redirect_to action: 'index'
 		else 
 			render 'new'
@@ -22,6 +21,22 @@ class BooksController < ApplicationController
 	def show
 		@book = Book.find(params[:id])
 	end
+
+	def edit
+		@book = Book.find(params[:id])
+	end
+
+	def update
+		@book = Book.update(book_params)
+		redirect_to action: 'index'
+	end
+
+	def destroy
+		@book = Book.find(params[:id])
+		Loan.where(book_id: @book).destroy_all
+		@book.destroy
+		redirect_to action: 'index'
+	end 
 
 	private
 		def book_params

@@ -1,23 +1,25 @@
-<h1>All User Loans</h1>
-
-<table class="table table-bordered">
-	<tr>
-		<th>Title</th>
-		<th>Check Out Date</th>
-		<th>Due Date</th>
-	</tr>
-	<% @loans.each do |loan| %>
+<h1>All Loans Taken Out</h1>
+<%= form_tag delete_loan_path, method: :delete do %>
+	<table class="table table-bordered">
 		<tr>
-			<td> <%= link_to Book.find(loan.book_id).title, book_path(loan.book_id) %></td>
-			<td> <%= loan.checkout_date %> </td>
-			<td> <%= loan.due_date %> </td>
+			<th>User ID</th>
+			<th>Email</th>
+			<th>Title</th>
+			<th>Check Out Date</th>
+			<th>Due Date</th>
+			<th>Returned?</th>
 		</tr>
-	<% end %>
-</table>
-
-<p>Money owned? </p>
-<p>
-	<%= number_to_currency(Loan.money_owed current_user) %>
-</p>
-
+		<% @loans.each do |loan| %>
+			<tr>
+				<td> <%= loan.user_id %></td>
+				<td> <%= User.find(loan.user_id).email %> </td>
+				<td> <%= link_to Book.find(loan.book_id).title, book_path(loan.book_id) %> </td>
+				<td> <%= loan.checkout_date %> </td>
+				<td> <%= loan.due_date %> </td>
+	  			<td><%= check_box_tag "loan_ids[]", loan.id %></td>
+			</tr>
+		<% end %>
+	</table>
+	<%= submit_tag "Delete Selected", class: "btn btn-primary" %>
+<% end %>
 
